@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment - FortuneX</title>
+    <title>Choose Your Package - FortuneX</title>
 
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
@@ -30,7 +30,6 @@
             --bg-color: #470001;      /* Deep Red */
             --text-color-light: #ffffff;
             --card-bg-color: #5D0001;
-            --danger-color: var(--primary-color);
         }
 
         html {
@@ -51,9 +50,36 @@
         main {
             flex-grow: 1;
         }
+        
+        section {
+            padding: 120px 0;
+            position: relative;
+        }
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-heading h2 {
+            font-size: 3.2rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+        
+        .section-heading h2 span {
+            color: var(--primary-color);
+        }
+
+        .section-heading p {
+            max-width: 600px;
+            margin: 1rem auto 0;
+            color: rgba(255, 255, 255, 0.7);
+        }
 
         /* --- Navbar (Copied for consistency) --- */
         .navbar {
+            transition: background-color 0.3s ease-in-out, border-bottom 0.3s ease-in-out;
             padding: 1rem 0;
             z-index: 1030;
             background-color: rgba(71, 0, 1, 0.7);
@@ -61,158 +87,223 @@
             -webkit-backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(242, 234, 153, 0.1);
         }
-        .navbar-brand img { height: 15px; }
-        .navbar-nav .nav-link { color: var(--text-color-light); font-weight: 500; margin: 0 1rem; }
-        .btn-join-us { background-color: var(--primary-color); color: var(--bg-color); font-weight: 600; padding: 0.5rem 1.5rem; border-radius: 50px; border: none; }
-        .navbar-toggler { border: 1px solid rgba(255, 255, 255, 0.2); }
-        .navbar-toggler-icon { background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e"); }
-        @media (max-width: 991.98px) {
-            .navbar-collapse { background-color: rgba(71, 0, 1, 0.7); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 1rem; text-align: center; border-radius: 5px; margin-top: 0.5rem; }
+
+        .navbar-brand img {
+            height: 15px;
         }
 
-        /* --- Payment Section --- */
-        .payment-section {
-            padding: 120px 0 60px;
+        .navbar-nav .nav-link {
+            color: var(--text-color-light);
+            font-weight: 500;
+            margin: 0 1rem;
+            transition: color 0.3s;
         }
 
-        .payment-card {
-            background-color: var(--card-bg-color);
-            padding: 2.5rem;
-            border-radius: 15px;
-            border: 1px solid rgba(242, 234, 153, 0.2);
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-        }
-        
-        .payment-card .card-title {
-            font-weight: 700;
-            text-align: center;
-        }
-        
-        .payment-card .card-subtitle {
-            font-size: 1.2rem;
-            font-weight: 600;
-            text-align: center;
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-link.active {
             color: var(--primary-color);
         }
 
-        .payment-card .card-intro {
-            text-align: center;
-            color: rgba(255, 255, 255, 0.7);
-            margin-top: 0.5rem;
-            margin-bottom: 2rem;
+        .btn-join-us {
+            background-color: var(--primary-color);
+            color: var(--bg-color);
+            font-weight: 600;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            border: none;
+            transition: all 0.3s;
         }
 
-        .alert-note {
-            background-color: rgba(242, 234, 153, 0.1);
-            border: 1px solid var(--danger-color);
-            color: var(--danger-color);
-            padding: 1rem;
-            border-radius: 5px;
-            font-size: 0.9rem;
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .payment-details {
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 1.5rem 0;
-            margin-bottom: 2rem;
-        }
-
-        .payment-details .detail-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 1rem;
-            font-size: 1rem;
-        }
-        .payment-details .detail-item:last-child { margin-bottom: 0; }
-        .payment-details .detail-item span { color: rgba(255, 255, 255, 0.7); }
-        .payment-details .detail-item strong { color: var(--text-color-light); font-weight: 600; }
-
-        .bank-info .transfer-instruction {
-            font-weight: 500;
-            text-align: center;
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 1.5rem;
-        }
-        
-        .bank-info .account-line {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: var(--bg-color);
-            padding: 0.8rem 1rem;
-            border-radius: 5px;
-            margin-bottom: 1rem;
-        }
-        
-        .bank-info .account-label { font-weight: 500; }
-        .bank-info .account-value { font-weight: 600; font-size: 1.1rem; color: var(--primary-color); }
-        
-        .account-value-wrapper { display: flex; align-items: center; }
-        #copy-btn { background-color: transparent; border: 1px solid var(--primary-color); color: var(--primary-color); font-size: 0.8rem; padding: 0.2rem 0.6rem; border-radius: 3px; margin-left: 1rem; cursor: pointer; }
-
-        .timer {
-            text-align: center;
-            margin: 2rem 0;
-            font-size: 1.1rem;
-            color: rgba(255, 255, 255, 0.8);
-        }
-        .timer #countdown { font-weight: 700; color: var(--danger-color); }
-
-        .final-instruction { text-align: center; font-size: 0.9rem; color: rgba(255, 255, 255, 0.7); }
-        
-        .btn-payment-confirm { display: block; width: 100%; text-align: center; background-color: var(--primary-color); color: var(--bg-color); font-weight: 600; padding: 0.8rem 1.5rem; border: none; border-radius: 50px; text-decoration: none; margin-top: 1.5rem; transition: all 0.3s ease; }
-        .btn-payment-confirm:hover {
+        .btn-join-us:hover {
             background-color: #fff8c5;
             color: var(--bg-color);
             transform: translateY(-2px);
         }
+        
+        .navbar-toggler {
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .navbar-toggler-icon {
+           background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+        
+        @media (max-width: 991.98px) {
+            .navbar-collapse {
+                background-color: rgba(71, 0, 1, 0.7);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                padding: 1rem;
+                text-align: center;
+                border-radius: 5px;
+                margin-top: 0.5rem;
+            }
+        }
+        
+        /* --- Packages Section --- */
+        .package-card-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            height: 100%;
+        }
+        .package-card-link:hover {
+            color: inherit;
+        }
+
+        .package-card {
+            background-color: var(--card-bg-color);
+            padding: 2.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(242, 234, 153, 0.2);
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .package-card-link:hover .package-card {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.4);
+        }
+
+        .package-card h3 {
+            font-weight: 700;
+            font-size: 1.8rem;
+        }
+
+        .package-card .price {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin: 1rem 0;
+        }
+        
+        .package-card .price sup {
+            font-size: 1.8rem;
+            top: -1em;
+        }
+
+        .package-card .features-list {
+            list-style: none;
+            padding: 0;
+            margin: 2rem 0;
+            text-align: left;
+            flex-grow: 1; /* Pushes button to the bottom */
+        }
+
+        .package-card .features-list li {
+            margin-bottom: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .package-card .features-list li i {
+            color: var(--primary-color);
+            margin-right: 0.8rem;
+        }
+        
+        .btn-select-plan {
+            background-color: var(--primary-color);
+            color: var(--bg-color);
+            font-weight: 700; /* Bolder to match hero button */
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            transition: all 0.3s;
+            width: 100%;
+            text-transform: uppercase;
+        }
+
+        .package-card-link:hover .btn-select-plan {
+            background-color: #fff8c5;
+            color: var(--bg-color);
+        }
+
+        /* --- Support Text Below Package --- */
+        .support-text-below-package {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+        .support-text-below-package a {
+            color: var(--primary-color);
+            text-decoration: underline;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        .support-text-below-package a:hover {
+            color: #fff8c5; /* Slightly lighter gold for hover */
+        }
+
 
         /* --- Footer (Copied for consistency) --- */
-        footer { background-color: #2a0000; padding: 40px 0 0; font-size: 0.9rem; }
-        .support-text {
-            text-align: center;
-            color: rgba(255, 255, 255, 0.7);
-            padding-bottom: 2rem;
-            line-height: 1.8;
+        footer {
+            background-color: #2a0000;
+            padding: 80px 0 0;
+            font-size: 0.9rem;
         }
-        .support-text a {
+
+        footer .footer-logo {
+            height: 35px;
+            margin-bottom: 1rem;
+        }
+        
+        footer p {
+            color: rgba(255, 255, 255, 0.7);
+             line-height: 1.8;
+        }
+        
+        footer p a {
             color: var(--primary-color);
             text-decoration: none;
             font-weight: 600;
         }
-         .support-text a:hover {
+
+        footer p a:hover {
             text-decoration: underline;
         }
-        .footer-bottom { border-top: 1px solid rgba(242, 234, 153, 0.1); padding: 1.5rem 0; text-align: center; color: rgba(255, 255, 255, 0.5); }
-        
-        /* --- Responsive Design --- */
-        @media (max-width: 991.98px) {
-            .payment-section { padding: 80px 0 40px; }
-            .payment-card { padding: 2rem; }
+
+        footer h5 {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
         }
 
-        @media (max-width: 576px) {
-            .payment-card {
-                padding: 1.5rem;
+        footer .footer-links a {
+            display: block;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            margin-bottom: 0.8rem;
+            transition: color 0.3s;
+        }
+        
+        footer .footer-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(242, 234, 153, 0.1);
+            padding: 1.5rem 0;
+            margin-top: 4rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        @media (max-width: 991.98px) {
+            section {
+                padding: 80px 0;
             }
-            .payment-card .card-title {
-                font-size: 1.8rem;
+            .section-heading h2 {
+                font-size: 2.8rem;
             }
-            .payment-card .card-subtitle {
-                font-size: 1.1rem;
+            footer {
+                text-align: center;
             }
-            .payment-details .detail-item,
-            .bank-info .account-line {
-                font-size: 0.9rem;
-            }
-            .bank-info .account-value {
-                font-size: 1rem;
-            }
-            .timer {
-                font-size: 1rem;
+            .footer-links {
+                margin-top: 2rem;
+                text-align: center;
             }
         }
 
@@ -227,67 +318,70 @@
                 <a class="navbar-brand" href="index.html">
                     <img src="/assets/logo.svg" alt="FortuneX Logo">
                 </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html#hero">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html#about">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html#features">Features</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html#packages">Packages</a>
+                        </li>
+                         <li class="nav-item">
+                            <a class="nav-link" href="index.html#faqs">FAQs</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </nav>
     </header>
 
     <!-- Main Content -->
     <main>
-        <section class="payment-section">
+        <!-- Packages Section -->
+        <section id="packages-selection">
             <div class="container">
+                <div class="section-heading">
+                    <h2>Your All-Access Pass to <span>Limitless Growth</span></h2>
+                    <p>Start your journey with our all-inclusive package, designed to provide everything you need to thrive in the FortuneX ecosystem.</p>
+                </div>
                 <div class="row justify-content-center">
-                    <div class="col-lg-6 col-md-9">
-                        <div class="payment-card">
-                            <h2 class="card-title">Payment Gateway</h2>
-                            <h3 class="card-subtitle">FortuneX Payment</h3>
-                            <p class="card-intro">Complete the one-time payment fee to begin thriving on FortuneX</p>
-
-                            <div class="alert-note">
-                                <strong>Note:</strong> DO NOT PAY WITH OPAY (Paycom). It is not accepted on FortuneX. Please use any other bank or POS to pay.
+                    <!-- Starter Pack -->
+                    <div class="col-lg-5 col-md-8">
+                        <a href="payment.html?plan=starter" class="package-card-link">
+                            <div class="package-card">
+                                <h3>Starter Pack</h3>
+                                <div class="price"><sup>₦</sup>12,000</div>
+                                <p>One-time activation fee for full access.</p>
+                                <ul class="features-list">
+                                    <li><i class="fas fa-check-circle"></i> Full Access to Engagement Rewards</li>
+                                    <li><i class="fas fa-check-circle"></i> Entry into FortuneX Partner Network</li>
+                                    <li><i class="fas fa-check-circle"></i> Access to All Digital Skill Courses</li>
+                                    <li><i class="fas fa-check-circle"></i> Eligibility for Digital Asset Opportunities</li>
+                                    <li><i class="fas fa-check-circle"></i> Unlimited Earning Potential</li>
+                                </ul>
+                                <div class="btn btn-select-plan">Select Plan</div>
                             </div>
-
-                            <div class="payment-details">
-                                <div class="detail-item">
-                                    <span>Package:</span>
-                                    <strong id="package-name">Loading...</strong>
-                                </div>
-                                <div class="detail-item">
-                                    <span>Amount to Pay:</span>
-                                    <strong id="package-amount">Loading...</strong>
-                                </div>
-                                <div class="detail-item">
-                                    <span>Sender Email:</span>
-                                    <strong id="sender-email">Loading...</strong>
-                                </div>
-                            </div>
-
-                            <div class="bank-info">
-                                <p class="transfer-instruction">Transfer to the account below</p>
-                                <div class="account-line">
-                                    <span class="account-label">Account Number</span>
-                                    <div class="account-value-wrapper">
-                                        <span class="account-value" id="account-number">...</span>
-                                        <button id="copy-btn"><i class="far fa-copy"></i> Copy</button>
-                                    </div>
-                                </div>
-                                <div class="account-line">
-                                    <span class="account-label">Bank</span>
-                                    <span class="account-value" id="bank-name">...</span>
-                                </div>
-                                <div class="account-line">
-                                    <span class="account-label">Account Name</span>
-                                    <span class="account-value" id="account-name">...</span>
-                                </div>
-                            </div>
-
-                            <div class="timer">Account will expire in <span id="countdown">29:59</span></div>
-
-                            <p class="final-instruction">After making payment, please contact support with your payment receipt.</p>
-
-                            <a href="#" class="btn btn-payment-confirm dynamic-wa-link">I have made payment</a>
-                        </div>
+                        </a>
                     </div>
                 </div>
+
+                <!-- Support Text Below -->
+                <div class="support-text-below-package text-center mt-5">
+                    <p>
+                        If you need more explanation on FortuneX, or you have any issue with making a payment, 
+                        <a href="#" class="dynamic-wa-link">click here to contact our Support Team</a>.
+                    </p>
+                </div>
+
             </div>
         </section>
     </main>
@@ -295,8 +389,27 @@
     <!-- Footer -->
     <footer>
         <div class="container">
-             <div class="support-text">
-                If you need more explanation on FortuneX, or you have any issue with making a payment, <a href="#" class="dynamic-wa-link">click here to contact our Support Team</a>.
+            <div class="row gy-4">
+                <div class="col-lg-4">
+                    <img src="/assets/logo.svg" alt="FortuneX Logo" class="footer-logo">
+                    <p>FortuneX is your all-access pass to limitless growth, freedom, and digital dominance. The Future is Yours to Command.</p>
+                </div>
+                <div class="col-lg-2 offset-lg-2">
+                    <h5>Quick Links</h5>
+                    <div class="footer-links">
+                        <a href="index.html#hero">Home</a>
+                        <a href="index.html#about">About</a>
+                        <a href="index.html#features">Features</a>
+                        <a href="index.html#faqs">FAQs</a>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <h5>Support</h5>
+                     <p>
+                        If you need more explanation on FortuneX, or you have any issue with making a payment, 
+                        <a href="#" class="dynamic-wa-link">click here to contact our Support Team</a>.
+                    </p>
+                </div>
             </div>
             <div class="footer-bottom">
                 &copy; 2025 FortuneX. All Rights Reserved.
@@ -304,6 +417,9 @@
         </div>
     </footer>
     
+    <!-- Bootstrap 5.3.3 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
@@ -311,21 +427,6 @@
     <!-- Internal JS -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // --- Static Content Setup ---
-            const userEmail = sessionStorage.getItem('userEmail');
-            document.getElementById('sender-email').textContent = userEmail || 'Not Provided';
-
-            const urlParams = new URLSearchParams(window.location.search);
-            const plan = urlParams.get('plan');
-
-            if (plan === 'starter') {
-                document.getElementById('package-name').textContent = 'Starter plan';
-                document.getElementById('package-amount').textContent = '₦12,000';
-            } else {
-                document.getElementById('package-name').textContent = 'N/A';
-                document.getElementById('package-amount').textContent = 'N/A';
-            }
-
             // --- Firebase Dynamic Content ---
             // IMPORTANT: Replace with your Firebase project's configuration
            const firebaseConfig = {
@@ -344,59 +445,17 @@
 
             settingsRef.get().then((doc) => {
                 if (doc.exists) {
-                    const data = doc.data();
-                    
-                    // Populate bank details
-                    document.getElementById('account-number').textContent = data.accountNumber || 'N/A';
-                    document.getElementById('bank-name').textContent = data.bankName || 'N/A';
-                    document.getElementById('account-name').textContent = data.accountName || 'N/A';
-
-                    // Update WhatsApp links
-                    if (data.whatsappNumber) {
-                        const waLink = `https://wa.me/${data.whatsappNumber}?text=Hello+I+want+to+pay+for+Registration`;
+                    const whatsappNumber = doc.data().whatsappNumber;
+                    if (whatsappNumber) {
+                        const waLink = `https://wa.me/${whatsappNumber}?text=Hello+I+want+to+pay+for+Registration`;
                         document.querySelectorAll('.dynamic-wa-link').forEach(link => {
                             link.href = waLink;
                         });
                     }
-                } else {
-                    console.log("No settings document found in Firebase.");
                 }
             }).catch((error) => {
                 console.error("Error getting settings:", error);
             });
-
-
-            // --- Page Interactions ---
-            const copyBtn = document.getElementById('copy-btn');
-            copyBtn.addEventListener('click', () => {
-                const accountNumber = document.getElementById('account-number').textContent;
-                navigator.clipboard.writeText(accountNumber).then(() => {
-                    copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
-                    setTimeout(() => {
-                        copyBtn.innerHTML = '<i class="far fa-copy"></i> Copy';
-                    }, 2000);
-                }).catch(err => {
-                    console.error('Failed to copy text: ', err);
-                });
-            });
-
-            // Countdown timer
-            const countdownEl = document.getElementById('countdown');
-            let timeInSeconds = 30 * 60; // 30 minutes
-            const timerInterval = setInterval(() => {
-                const minutes = Math.floor(timeInSeconds / 60);
-                let seconds = timeInSeconds % 60;
-                seconds = seconds < 10 ? '0' + seconds : seconds;
-                
-                countdownEl.textContent = `${minutes}:${seconds}`;
-                
-                if (timeInSeconds <= 0) {
-                    clearInterval(timerInterval);
-                    countdownEl.parentElement.innerHTML = 'Account details have <strong style="color: #dc3545;">expired</strong>.';
-                } else {
-                    timeInSeconds--;
-                }
-            }, 1000);
         });
     </script>
 </body>
