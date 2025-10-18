@@ -3,7 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Choose Your Package - FortuneX</title>
+    <title>FortuneX Starter Pack | Pricing & Packages</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Activate your FortuneX journey with the Starter Pack. Get full access to our rewards system, affiliate network, and all courses for a one-time fee.">
+    <link rel="canonical" href="http://fortunex.com.ng/packages.html">
+
+    <!-- Open Graph / Social Media Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://fortunex.com.ng/packages.html">
+    <meta property="og:title" content="FortuneX Starter Pack | Pricing & Packages">
+    <meta property="og:description" content="Activate your FortuneX journey with the Starter Pack. Get full access to our rewards system, affiliate network, and all courses for a one-time fee.">
+    <meta property="og:image" content="http://fortunex.com.ng/assets/social-preview-image.jpg">
+    
+    <!-- Twitter Card Tags -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="http://fortunex.com.ng/packages.html">
+    <meta property="twitter:title" content="FortuneX Starter Pack | Pricing & Packages">
+    <meta property="twitter:description" content="Activate your FortuneX journey with the Starter Pack. Get full access to our rewards system, affiliate network, and all courses for a one-time fee.">
+    <meta property="twitter:image" content="http://fortunex.com.ng/assets/social-preview-image.jpg">
 
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
@@ -430,12 +448,13 @@
             // --- Firebase Dynamic Content ---
             // IMPORTANT: Replace with your Firebase project's configuration
            const firebaseConfig = {
-    apiKey: "AIzaSyB2PwujzArL5Pie08mILe56dHnA5S6S4y8",
-    authDomain: "fortunex-project.firebaseapp.com",
-    projectId: "fortunex-project",
-    storageBucket: "fortunex-project.firebasestorage.app",
-    messagingSenderId: "108724314575",
-    appId: "1:108724314575:web:7bbc082fc79ad01da2b2ba"
+    apiKey: "AIzaSyDogB8ViVjajhdYDbdLa8ggky4lalgwgkE",
+    authDomain: "animo-website.firebaseapp.com",
+    databaseURL: "https://animo-website-default-rtdb.firebaseio.com",
+    projectId: "animo-website",
+    storageBucket: "animo-website.firebasestorage.app",
+    messagingSenderId: "249453136869",
+    appId: "1:249453136869:web:d7009c4b5a261f13b73d0c"
   };
 
             firebase.initializeApp(firebaseConfig);
@@ -456,6 +475,27 @@
                 console.error("Error getting settings:", error);
             });
         });
+    </script>
+    
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": "FortuneX Starter Pack",
+      "description": "One-time activation fee for full access to the FortuneX ecosystem, including the rewards system, affiliate network, and all premium skill courses.",
+      "brand": {
+        "@type": "Brand",
+        "name": "FortuneX"
+      },
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "NGN",
+        "price": "12000",
+        "availability": "https://schema.org/InStock",
+        "url": "http://fortunex.com.ng/packages.html"
+      }
+    }
     </script>
 </body>
 </html>

@@ -3,7 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FortuneX - The Future is Yours to Command</title>
+    <title>FortuneX | Earn Rewards, Affiliate Network & Skill Development</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Join FortuneX, the ecosystem for wealth creation and personal growth. Earn rewards for activities, grow with our affiliate network, and learn high-demand skills. Start your path to financial independence.">
+    <meta name="keywords" content="FortuneX, earn rewards, affiliate marketing, skill development, financial independence, personal growth">
+    <link rel="canonical" href="http://fortunex.com.ng/index.html">
+    
+    <!-- Open Graph / Social Media Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://fortunex.com.ng/index.html">
+    <meta property="og:title" content="FortuneX | Earn Rewards, Affiliate Network & Skill Development">
+    <meta property="og:description" content="Join FortuneX, the ecosystem for wealth creation and personal growth. Earn rewards for activities, grow with our affiliate network, and learn high-demand skills. Start your path to financial independence.">
+    <meta property="og:image" content="http://fortunex.com.ng/assets/social-preview-image.jpg">
+    
+    <!-- Twitter Card Tags -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="http://fortunex.com.ng/index.html">
+    <meta property="twitter:title" content="FortuneX | Earn Rewards, Affiliate Network & Skill Development">
+    <meta property="twitter:description" content="Join FortuneX, the ecosystem for wealth creation and personal growth. Earn rewards for activities, grow with our affiliate network, and learn high-demand skills. Start your path to financial independence.">
+    <meta property="twitter:image" content="http://fortunex.com.ng/assets/social-preview-image.jpg">
 
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
@@ -161,6 +180,7 @@
             letter-spacing: 1px;
             color: rgba(255, 255, 255, 0.8);
             margin-bottom: 1.5rem;
+            font-weight: 500; /* Resetting potential browser h1 styling */
         }
 
         .hero-content .description {
@@ -632,8 +652,8 @@
                 <div class="row">
                     <div class="col-lg-7">
                         <div class="hero-content" data-aos="fade-up">
-                            <img src="/assets/logo.svg" alt="FortuneX" class="hero-logo">
-                            <p class="slogan">The Future is Yours to Command.</p>
+                            <img src="/assets/logo.svg" alt="FortuneX company logo" class="hero-logo">
+                            <h1 class="slogan">The Future is Yours to Command.</h1>
                             <p class="description">
                                We are building the ultimate bridge between your passion, creativity, and prosperity, empowering you to turn innovation into income and imagination into influence.
                             </p>
@@ -668,7 +688,7 @@
                     </div>
                     <div class="col-lg-6" data-aos="fade-left" data-aos-delay="200">
                         <div class="about-visual-wrapper">
-                            <img src="/assets/about-image.jpg" alt="A promotional flag with the FortuneX logo." class="about-visual img-fluid">
+                            <img src="/assets/about-image.jpg" alt="A promotional flag with the FortuneX logo." class="about-visual img-fluid" loading="lazy">
                         </div>
                     </div>
                 </div>
@@ -839,7 +859,7 @@
         <div class="container">
             <div class="row gy-4">
                 <div class="col-lg-4">
-                    <img src="/assets/logo.svg" alt="FortuneX Logo" class="footer-logo">
+                    <img src="/assets/logo.svg" alt="FortuneX Logo" class="footer-logo" loading="lazy">
                     <p>FortuneX is your all-access pass to limitless growth, freedom, and digital dominance. The Future is Yours to Command.</p>
                 </div>
                 <div class="col-lg-2 offset-lg-2">
@@ -908,12 +928,13 @@
             // --- Firebase Dynamic Content ---
             // IMPORTANT: Replace with your Firebase project's configuration
            const firebaseConfig = {
-    apiKey: "AIzaSyB2PwujzArL5Pie08mILe56dHnA5S6S4y8",
-    authDomain: "fortunex-project.firebaseapp.com",
-    projectId: "fortunex-project",
-    storageBucket: "fortunex-project.firebasestorage.app",
-    messagingSenderId: "108724314575",
-    appId: "1:108724314575:web:7bbc082fc79ad01da2b2ba"
+    apiKey: "AIzaSyDogB8ViVjajhdYDbdLa8ggky4lalgwgkE",
+    authDomain: "animo-website.firebaseapp.com",
+    databaseURL: "https://animo-website-default-rtdb.firebaseio.com",
+    projectId: "animo-website",
+    storageBucket: "animo-website.firebasestorage.app",
+    messagingSenderId: "249453136869",
+    appId: "1:249453136869:web:d7009c4b5a261f13b73d0c"
   };
 
             firebase.initializeApp(firebaseConfig);
@@ -934,6 +955,39 @@
                 console.error("Error getting settings:", error);
             });
         });
+    </script>
+    
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "FortuneX",
+      "url": "http://fortunex.com.ng/",
+      "logo": "http://fortunex.com.ng/assets/logo.svg",
+      "description": "FortuneX is a revolutionary ecosystem designed for wealth creation and personal development, merging technology and opportunity on one seamless platform."
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "How does the 'Earn Rewards' feature work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Our technology tracks your daily activities, allowing you to accumulate points within the FortuneX app that can be converted into real income."
+        }
+      },{
+        "@type": "Question",
+        "name": "What skills can I learn through FortuneX?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We provide premium courses in high-demand fields like digital marketing, e-commerce, and financial literacy to provide you with practical, valuable knowledge."
+        }
+      }]
+    }
     </script>
 </body>
 </html>

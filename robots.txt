@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /admin.html
+Disallow: /payment.html
+
+Sitemap: http://fortunex.com.ng/sitemap.xml
