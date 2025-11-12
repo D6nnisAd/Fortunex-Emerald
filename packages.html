@@ -526,7 +526,7 @@
                         user_email: userEmail
                     },
                     callback: function(response) {
-                        const message = `Hello, I have successfully paid for the FortuneX Starter Pack my email is.\n\nMy transaction reference is: ${response.reference}\nMy email is: ${userEmail}\n\nPlease grant me access.`;
+                        const message = `Hello, I have successfully paid for the FortuneX Starter Pack.\n\nMy transaction reference is: ${response.reference}\nMy email is: ${userEmail}\n\nPlease grant me access.`;
                         const waRedirectLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
                         window.location.href = waRedirectLink;
                     },
