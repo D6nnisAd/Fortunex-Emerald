@@ -383,7 +383,7 @@
                 <div class="row justify-content-center">
                     <!-- Starter Pack -->
                     <div class="col-lg-5 col-md-8">
-                        <a href="payment.html?plan=starter" class="package-card-link">
+                        <a href="#" id="starter-pack-btn" class="package-card-link">
                             <div class="package-card">
                                 <h3>Starter Pack</h3>
                                 <div class="price"><sup>₦</sup>15,000</div>
@@ -454,6 +454,9 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 
+    <!-- Paystack Inline JS -->
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+
     <!-- Internal JS -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -486,6 +489,48 @@
             }).catch((error) => {
                 console.error("Error getting settings:", error);
             });
+
+            // --- Paystack Integration ---
+            const starterPackButton = document.getElementById('starter-pack-btn');
+            const paystackPublicKey = 'pk_live_79750a67874f70cbf33588ab9e9aa2764f5e6102';
+            const planAmount = 1500000; // Amount in kobo (15,000 NGN)
+
+            starterPackButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                payWithPaystack();
+            });
+
+            function payWithPaystack() {
+                const userEmail = sessionStorage.getItem('userEmail');
+                if (!userEmail) {
+                    alert('Your registration details were not found. Please go back and register first.');
+                    window.location.href = 'register.html';
+                    return;
+                }
+
+                const handler = PaystackPop.setup({
+                    key: paystackPublicKey,
+                    email: userEmail,
+                    amount: planAmount,
+                    currency: 'NGN',
+                    ref: 'fx_' + Math.floor((Math.random() * 1000000000) + 1), // A unique reference for every transaction
+                    metadata: {
+                        plan: 'Starter Pack',
+                    },
+                    callback: function(response) {
+                        // This is called after a successful transaction.
+                        // You should typically verify the transaction on your server.
+                        alert('Payment successful! Your transaction reference is ' + response.reference);
+                        // Redirect to a thank you page or user dashboard
+                        window.location.href = 'index.html'; 
+                    },
+                    onClose: function() {
+                        // This is called when the user closes the payment modal.
+                        alert('You have cancelled the payment.');
+                    }
+                });
+                handler.openIframe();
+            }
         });
     </script>
     
