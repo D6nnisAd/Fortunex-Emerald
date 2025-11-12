@@ -461,30 +461,32 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // --- Firebase Dynamic Content ---
-            // IMPORTANT: Replace with your Firebase project's configuration
-           const firebaseConfig = {
-    apiKey: "AIzaSyDogB8ViVjajhdYDbdLa8ggky4lalgwgkE",
-    authDomain: "animo-website.firebaseapp.com",
-    databaseURL: "https://animo-website-default-rtdb.firebaseio.com",
-    projectId: "animo-website",
-    storageBucket: "animo-website.firebasestorage.app",
-    messagingSenderId: "249453136869",
-    appId: "1:249453136869:web:d7009c4b5a261f13b73d0c"
-  };
+            const firebaseConfig = {
+                apiKey: "AIzaSyDogB8ViVjajhdYDbdLa8ggky4lalgwgkE",
+                authDomain: "animo-website.firebaseapp.com",
+                databaseURL: "https://animo-website-default-rtdb.firebaseio.com",
+                projectId: "animo-website",
+                storageBucket: "animo-website.firebasestorage.app",
+                messagingSenderId: "249453136869",
+                appId: "1:249453136869:web:d7009c4b5a261f13b73d0c"
+            };
 
             firebase.initializeApp(firebaseConfig);
             const db = firebase.firestore();
             const settingsRef = db.collection('settings').doc('payment');
+            let whatsappNumber = ''; // To store the fetched WhatsApp number
 
             settingsRef.get().then((doc) => {
                 if (doc.exists) {
-                    const whatsappNumber = doc.data().whatsappNumber;
+                    whatsappNumber = doc.data().whatsappNumber;
                     if (whatsappNumber) {
-                        const waLink = `https://wa.me/${whatsappNumber}?text=Hello,+I+want+to+pay+for+coupon+code+to+complete+my+Fortunex+Registration`;
+                        const waLink = `https://wa.me/${whatsappNumber}?text=Hello,+I+need+help+regarding+my+FortuneX+payment.`;
                         document.querySelectorAll('.dynamic-wa-link').forEach(link => {
                             link.href = waLink;
                         });
                     }
+                } else {
+                    console.warn("WhatsApp number not found in settings.");
                 }
             }).catch((error) => {
                 console.error("Error getting settings:", error);
@@ -507,6 +509,11 @@
                     window.location.href = 'register.html';
                     return;
                 }
+                
+                if (!whatsappNumber) {
+                    alert('The payment system is currently unavailable. Please contact support.');
+                    return;
+                }
 
                 const handler = PaystackPop.setup({
                     key: paystackPublicKey,
@@ -516,16 +523,14 @@
                     ref: 'fx_' + Math.floor((Math.random() * 1000000000) + 1), // A unique reference for every transaction
                     metadata: {
                         plan: 'Starter Pack',
+                        user_email: userEmail
                     },
                     callback: function(response) {
-                        // This is called after a successful transaction.
-                        // You should typically verify the transaction on your server.
-                        alert('Payment successful! Your transaction reference is ' + response.reference);
-                        // Redirect to a thank you page or user dashboard
-                        window.location.href = 'index.html'; 
+                        const message = `Hello, I have successfully paid for the FortuneX Starter Pack.\n\nMy transaction reference is: ${response.reference}\nMy email is: ${userEmail}\n\nPlease grant me access.`;
+                        const waRedirectLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+                        window.location.href = waRedirectLink;
                     },
                     onClose: function() {
-                        // This is called when the user closes the payment modal.
                         alert('You have cancelled the payment.');
                     }
                 });
