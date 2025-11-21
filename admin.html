@@ -133,9 +133,9 @@
                             <fieldset>
                                  <legend class="mb-3">Support & Links</legend>
                                 <div class="mb-3">
-                                    <label for="whatsappNumber" class="form-label">WhatsApp Phone Number</label>
-                                    <input type="text" class="form-control" id="whatsappNumber" placeholder="e.g., 2348117299452" required>
-                                    <div class="form-text">Enter the number without '+'. It will be used to generate the wa.me link.</div>
+                                    <label for="whatsappLink" class="form-label">WhatsApp Link</label>
+                                    <input type="text" class="form-control" id="whatsappLink" placeholder="e.g., https://wa.me/..." required>
+                                    <div class="form-text">Enter the full WhatsApp link you want to use.</div>
                                 </div>
                             </fieldset>
                             <button type="submit" class="btn btn-save w-100 mt-4">Save Changes</button>
@@ -150,29 +150,18 @@
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    
+    <!-- Internal JS -->
+    <script src="firebase-init.js"></script>
 
     <script>
         // --- Admin Authentication and Firebase Logic ---
-
-        // IMPORTANT: Replace with your Firebase project's configuration
-        const firebaseConfig = {
-    apiKey: "AIzaSyDogB8ViVjajhdYDbdLa8ggky4lalgwgkE",
-    authDomain: "animo-website.firebaseapp.com",
-    databaseURL: "https://animo-website-default-rtdb.firebaseio.com",
-    projectId: "animo-website",
-    storageBucket: "animo-website.firebasestorage.app",
-    messagingSenderId: "249453136869",
-    appId: "1:249453136869:web:d7009c4b5a261f13b73d0c"
-  };
-        
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
+        const db = window.db;
         const settingsRef = db.collection('settings').doc('payment');
 
         // Simple password protection
         const password = prompt("Enter admin password:");
-        if (password !== "fortunexemerald") { // You can change this password
+        if (password !== "animoemerald") {
             alert("Incorrect password. Access denied.");
             document.body.innerHTML = '<h1 class="text-center text-danger mt-5">Access Denied</h1>';
         } else {
@@ -192,7 +181,7 @@
                     document.getElementById('accountName').value = data.accountName || '';
                     document.getElementById('accountNumber').value = data.accountNumber || '';
                     document.getElementById('bankName').value = data.bankName || '';
-                    document.getElementById('whatsappNumber').value = data.whatsappNumber || '';
+                    document.getElementById('whatsappLink').value = data.whatsappLink || '';
                 } else {
                     console.log("No settings document found. Please save initial settings.");
                     statusMessage.textContent = 'No settings found. Fill out and save the form to create them.';
@@ -212,7 +201,7 @@
                 accountName: document.getElementById('accountName').value,
                 accountNumber: document.getElementById('accountNumber').value,
                 bankName: document.getElementById('bankName').value,
-                whatsappNumber: document.getElementById('whatsappNumber').value
+                whatsappLink: document.getElementById('whatsappLink').value
             };
 
             statusMessage.textContent = 'Saving...';

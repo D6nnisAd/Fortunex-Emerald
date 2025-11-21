@@ -454,55 +454,16 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 
-    <!-- Paystack Inline JS -->
-    <script src="https://js.paystack.co/v1/inline.js"></script>
-
     <!-- Internal JS -->
+    <script src="firebase-init.js"></script>
+    <script src="app.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // --- Firebase Dynamic Content ---
-            const firebaseConfig = {
-                apiKey: "AIzaSyDogB8ViVjajhdYDbdLa8ggky4lalgwgkE",
-                authDomain: "animo-website.firebaseapp.com",
-                databaseURL: "https://animo-website-default-rtdb.firebaseio.com",
-                projectId: "animo-website",
-                storageBucket: "animo-website.firebasestorage.app",
-                messagingSenderId: "249453136869",
-                appId: "1:249453136869:web:d7009c4b5a261f13b73d0c"
-            };
-
-            firebase.initializeApp(firebaseConfig);
-            const db = firebase.firestore();
-            const settingsRef = db.collection('settings').doc('payment');
-            let whatsappNumber = ''; // To store the fetched WhatsApp number
-
-            settingsRef.get().then((doc) => {
-                if (doc.exists) {
-                    whatsappNumber = doc.data().whatsappNumber;
-                    if (whatsappNumber) {
-                        const waLink = `https://wa.me/${whatsappNumber}?text=Hello,+I+need+help+regarding+my+FortuneX+payment.`;
-                        document.querySelectorAll('.dynamic-wa-link').forEach(link => {
-                            link.href = waLink;
-                        });
-                    }
-                } else {
-                    console.warn("WhatsApp number not found in settings.");
-                }
-            }).catch((error) => {
-                console.error("Error getting settings:", error);
-            });
-
-            // --- Paystack Integration ---
+            // --- Button Click Handler ---
             const starterPackButton = document.getElementById('starter-pack-btn');
-            const paystackPublicKey = 'pk_live_79750a67874f70cbf33588ab9e9aa2764f5e6102';
-            const planAmount = 1500000; // Amount in kobo (15,000 NGN)
-
+            
             starterPackButton.addEventListener('click', (e) => {
                 e.preventDefault();
-                payWithPaystack();
-            });
-
-            function payWithPaystack() {
                 const userEmail = sessionStorage.getItem('userEmail');
                 if (!userEmail) {
                     alert('Your registration details were not found. Please go back and register first.');
@@ -510,32 +471,9 @@
                     return;
                 }
                 
-                if (!whatsappNumber) {
-                    alert('The payment system is currently unavailable. Please contact support.');
-                    return;
-                }
-
-                const handler = PaystackPop.setup({
-                    key: paystackPublicKey,
-                    email: userEmail,
-                    amount: planAmount,
-                    currency: 'NGN',
-                    ref: 'fx_' + Math.floor((Math.random() * 1000000000) + 1), // A unique reference for every transaction
-                    metadata: {
-                        plan: 'Starter Pack',
-                        user_email: userEmail
-                    },
-                    callback: function(response) {
-                        const message = `Hello, I have successfully paid for the FortuneX Starter Pack.\n\nMy transaction reference is: ${response.reference}\nMy email is: ${userEmail}\n\nPlease grant me access.`;
-                        const waRedirectLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-                        window.location.href = waRedirectLink;
-                    },
-                    onClose: function() {
-                        alert('You have cancelled the payment.');
-                    }
-                });
-                handler.openIframe();
-            }
+                // Redirect to payment page directly
+                window.location.href = 'payment.html?plan=starter';
+            });
         });
     </script>
     
