@@ -395,7 +395,7 @@
                                     <li><i class="fas fa-check-circle"></i> Eligibility for Digital Asset Opportunities</li>
                                     <li><i class="fas fa-check-circle"></i> Access to Earning Opportunities</li>
                                 </ul>
-                                <div class="btn btn-select-plan">Select Plan</div>
+                                <div class="btn btn-select-plan">Pay Now</div>
                             </div>
                         </a>
                     </div>
@@ -457,23 +457,77 @@
     <!-- Internal JS -->
     <script src="firebase-init.js"></script>
     <script src="app.js"></script>
+    
+    <!-- Paystack JS Library -->
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // --- Button Click Handler ---
+        document.addEventListener('DOMContentLoaded', async () => {
+            // --- Fetch Dynamic WhatsApp Link for Redirection ---
+            let globalWhatsappLink = null;
+            const db = window.db;
+            
+            // We fetch this immediately so it's ready when the payment completes
+            if (db) {
+                try {
+                    const doc = await db.collection('settings').doc('payment').get();
+                    if (doc.exists && doc.data().whatsappLink) {
+                        globalWhatsappLink = doc.data().whatsappLink;
+                    }
+                } catch (error) {
+                    console.error("Error fetching settings:", error);
+                }
+            }
+
+            // --- Button Click Handler with Paystack ---
             const starterPackButton = document.getElementById('starter-pack-btn');
             
             starterPackButton.addEventListener('click', (e) => {
                 e.preventDefault();
                 const userEmail = sessionStorage.getItem('userEmail');
+                
                 if (!userEmail) {
                     alert('Your registration details were not found. Please go back and register first.');
                     window.location.href = 'register.html';
                     return;
                 }
                 
-                // Redirect to payment page directly
-                window.location.href = 'payment.html?plan=starter';
+                // Initialize Paystack payment
+                payWithPaystack(userEmail);
             });
+
+            function payWithPaystack(email) {
+                const handler = PaystackPop.setup({
+                    key: 'pk_live_fc1db9ce1d317ab8f1aeca041b68b22c36594bad', 
+                    email: email,
+                    amount: 15000 * 100, // Amount in kobo (15,000 NGN)
+                    currency: 'NGN',
+                    ref: 'FTX_' + Math.floor((Math.random() * 1000000000) + 1), // Generate a random reference number
+                    metadata: {
+                        custom_fields: [
+                            {
+                                display_name: "Plan",
+                                variable_name: "plan",
+                                value: "Starter Pack"
+                            }
+                        ]
+                    },
+                    callback: function(response) {
+                        // Payment successful
+                        // Redirect to the dynamic WhatsApp link fetched from Admin panel
+                        if (globalWhatsappLink) {
+                             window.location.href = globalWhatsappLink;
+                        } else {
+                            // Fallback if link is not set or failed to fetch
+                            alert("Payment successful! Please contact support manually.");
+                        }
+                    },
+                    onClose: function() {
+                        alert('Transaction cancelled.');
+                    }
+                });
+                handler.openIframe();
+            }
         });
     </script>
     
